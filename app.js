@@ -1,4 +1,5 @@
 var express = require('express')
+var mysql = require('mysql');
 var path = require('path')
 
 var app = express()
@@ -11,7 +12,23 @@ app.get('/', function (req, res) {
 })
 
 app.post('/todos', function (req, res) {
-    res.send(req.body.todo_name);
+    var connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: '',
+        database: 'mytodoapp'
+    });
+
+    connection.connect(function (err) {
+        if (err) throw err;
+
+        var sql = `INSERT INTO todos (name) VALUES ('${req.body.todo_name}')`;
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+            res.redirect(req.header('Referer'))
+        });
+    });
+    
 })
 
 app.listen(3000);
