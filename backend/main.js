@@ -5,7 +5,7 @@ import cors from "cors";
 
 import mongoose from "mongoose";
 
-import { create, findAll } from "./store/todo.store.js";
+import { create, findAll, findById} from "./store/todo.store.js";
 
 const port = process.env.PORT;
 
@@ -19,6 +19,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // list all end points for todo resource as per RESTful API
+
 // GET /todos -> list all todos
 app.get("/todos", (req, res) => {
   findAll(req.body).then((data) =>
@@ -34,6 +35,12 @@ app.post("/todos", (req, res) => {
 });
 
 // GET /todos/:id -> get a todo by id
+app.get("/todos/:id", (req, res) => {
+  findById(req.params.id)
+    .then((data) => res.json(data))
+    .catch((err) => res.status(400).json(err));
+});
+
 // PUT /todos/:id -> update a todo by id
 // DELETE /todos/:id -> delete a todo by id
 
