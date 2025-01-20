@@ -5,7 +5,7 @@ import cors from "cors";
 
 import mongoose from "mongoose";
 
-import { create, findAll, findById, update } from "./store/todo.store.js";
+import { create, findAll, findById, update, deleteById } from "./store/todo.store.js";
 
 const port = process.env.PORT;
 
@@ -49,6 +49,11 @@ app.put("/todos/:id", (req, res) => {
 })
 
 // DELETE /todos/:id -> delete a todo by id
+app.delete("/todos/:id", (req, res) => {
+  deleteById(req.params.id)
+  .then((data) => res.json(data))
+  .catch((err) => res.status(400).json(err));
+})
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
