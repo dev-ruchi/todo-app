@@ -5,7 +5,7 @@ import cors from "cors";
 
 import mongoose from "mongoose";
 
-import { create, findAll, findById} from "./store/todo.store.js";
+import { create, findAll, findById, update } from "./store/todo.store.js";
 
 const port = process.env.PORT;
 
@@ -42,6 +42,12 @@ app.get("/todos/:id", (req, res) => {
 });
 
 // PUT /todos/:id -> update a todo by id
+app.put("/todos/:id", (req, res) => {
+  update(req.params.id, req.body)
+  .then((data) => res.json(data))
+  .catch((err) => res.status(400).json(err));
+})
+
 // DELETE /todos/:id -> delete a todo by id
 
 app.listen(port, () => {
