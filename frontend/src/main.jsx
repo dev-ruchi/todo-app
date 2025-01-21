@@ -3,9 +3,9 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import "./index.css";
-//import App from "./App.jsx";
 import TodoList from "./components/TodoList.jsx";
 import Layout from "./components/Layout.jsx";
+import CreateTodo from "./components/CreateTodo.jsx";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +16,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <TodoList />,
       },
+      {
+        path: "/create",
+        element: <CreateTodo />,
+      }
     ],
   },
 ]);
