@@ -11,9 +11,9 @@ import {
 
 // GET /todos -> list all todos
 router.get("/", (req, res) => {
-  findAll(req.body).then((data) =>
-    res.json(data).catch((err) => res.status(400).json(err))
-  );
+  findAll(req.body)
+    .then((data) => res.json(data))
+    .catch((err) => res.status(400).json(err));
 });
 
 // POST /todos -> create a new todo
