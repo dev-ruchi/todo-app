@@ -65,39 +65,47 @@ const UpdateTodo = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto">
-      <h1 className="text-xl mb-4">Update Task</h1>
-      <form onSubmit={handleUpdate} className="space-y-4">
+    <div className="max-w-3xl mx-auto p-6 mt-10 bg-white rounded-lg shadow-sm">
+    <h1 className="text-2xl font-semibold text-gray-800 mb-6">Update Task</h1>
+    <form onSubmit={handleUpdate} className="space-y-6">
+      <div>
         <input
           type="text"
           name="title"
           value={todoData.title}
           onChange={handleChange}
           placeholder="Enter title"
-          className="input input-bordered w-full"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         />
+      </div>
+      <div>
         <textarea
           name="description"
           value={todoData.description}
           onChange={handleChange}
           placeholder="Enter description"
-          className="textarea textarea-bordered w-full h-24"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent h-32 resize-none"
         ></textarea>
-        <label className="flex items-center space-x-2">
-          <input
-            type="checkbox"
-            name="completed"
-            checked={todoData.completed}
-            onChange={handleChange}
-            className="checkbox"
-          />
-          <span>Completed</span>
-        </label>
-        <button type="submit" className="btn btn-primary w-full">
-          Update Todo
-        </button>
-      </form>
-    </div>
+      </div>
+      <label className="flex items-center space-x-3 cursor-pointer">
+        <input
+          type="checkbox"
+          name="completed"
+          checked={todoData.completed}
+          onChange={handleChange}
+          className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+        />
+        <span className="text-gray-700">Completed</span>
+      </label>
+      <button 
+        type="submit" 
+        className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+      >
+        Update Todo
+      </button>
+    </form>
+  </div>
+
   );
 };
 
