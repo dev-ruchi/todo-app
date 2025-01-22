@@ -1,13 +1,13 @@
 import React from "react";
 import backend from "../network/backend.js";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import CreateTodo from "./CreateTodo";
 import DeleteIcon from "@mui/icons-material/Delete";
-import UpdateIcon from '@mui/icons-material/Update';
+import UpdateIcon from "@mui/icons-material/Update";
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
-  const [editingTodo, setEditingTodo] = useState(null);
 
   useEffect(() => {
     fetchTodos();
@@ -26,31 +26,6 @@ const TodoList = () => {
       // Update the local state to remove the deleted todo
       const updatedTodos = todos.filter((todo) => todo._id !== id);
       setTodos(updatedTodos);
-    });
-  };
-
-  const toggleCompletion = (id) => {
-    const updatedTodos = todos.map((todo) => {
-      if (todo._id === id) {
-        return { ...todo, completed: !todo.completed };
-      }
-      return todo;
-    });
-    setTodos(updatedTodos);
-  };
-
-  const handleUpdateClick = (todo) => {
-    setEditingTodo(todo); // Set the selected todo for editing
-  };
-
-  const handleUpdateSubmit = (e) => {
-    e.preventDefault();
-    backend.put(`/todos/${editingTodo._id}`, editingTodo).then(() => {
-      const updatedTodos = todos.map((todo) =>
-        todo._id === editingTodo._id ? editingTodo : todo
-      );
-      setTodos(updatedTodos);
-      setEditingTodo(null); // Close the update form
     });
   };
 
@@ -81,11 +56,10 @@ const TodoList = () => {
                   {todo.title}
                 </h1>
               </div>
-              <button
-                onClick={() => handleUpdateClick(todo)}
-                className="px-3 py-1 text-sm text-gray-500 hover:text-gray-800 rounded-md transition-colors duration-200"
-              >
-               < UpdateIcon />
+              <button className="px-3 py-1 text-sm text-gray-500 hover:text-gray-800 rounded-md transition-colors duration-200">
+                <Link to={`/update/${todo._id}`}>
+                  <UpdateIcon />
+                </Link>
               </button>
               <button
                 onClick={() => deleteTodo(todo._id)}
@@ -101,49 +75,6 @@ const TodoList = () => {
             >
               {todo.description}
             </p>
-
-            {/* Render Update Form if editing this todo */}
-            {editingTodo && editingTodo._id === todo._id && (
-              <form onSubmit={handleUpdateSubmit} className="mt-4 space-y-2">
-                <input
-                  type="text"
-                  name="title"
-                  value={editingTodo.title}
-                  onChange={(e) =>
-                    setEditingTodo({ ...editingTodo, title: e.target.value })
-                  }
-                  placeholder="Update title"
-                  className="w-full px-3 py-2 border rounded-md"
-                />
-                <textarea
-                  name="description"
-                  value={editingTodo.description}
-                  onChange={(e) =>
-                    setEditingTodo({
-                      ...editingTodo,
-                      description: e.target.value,
-                    })
-                  }
-                  placeholder="Update description"
-                  className="w-full px-3 py-2 border rounded-md"
-                />
-                <div className="flex space-x-2">
-                  <button
-                    type="submit"
-                    className="px-3 py-1 bg-blue-500 text-white rounded-md"
-                  >
-                    Save
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setEditingTodo(null)}
-                    className="px-3 py-1 text-gray-500 hover:text-gray-800 rounded-md"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
-            )}
           </div>
         ))}
       </div>
