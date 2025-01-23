@@ -43,7 +43,7 @@ const CreateTodo = () => {
   };
 
   return (
-    <div className="min-h-screen p-8">
+    <div className="p-8">
       <div className="max-w-md mx-auto p-6  rounded-lg shadow-md">
         <h1 className="text-2xl font-bold text-gray-800 mb-6">
           Create a New Todo
@@ -64,16 +64,6 @@ const CreateTodo = () => {
             placeholder="Enter description"
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent h-32 resize-none"
           ></textarea>
-          <label className="flex items-center space-x-2 cursor-pointer">
-            <input
-              type="checkbox"
-              name="completed"
-              checked={todoData.completed}
-              onChange={handleChange}
-              className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-            />
-            <span className="text-gray-700">Completed</span>
-          </label>
           <button
             type="submit"
             className="w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"

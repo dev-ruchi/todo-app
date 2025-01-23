@@ -4,7 +4,9 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import CreateTodo from "./CreateTodo";
 import DeleteIcon from "@mui/icons-material/Delete";
-import UpdateIcon from "@mui/icons-material/Update";
+import ModeEdition from "@mui/icons-material/ModeEdit";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
@@ -58,14 +60,22 @@ const TodoList = () => {
               </div>
               <button className="px-3 py-1 text-sm text-gray-500 hover:text-gray-800 rounded-md transition-colors duration-200">
                 <Link to={`/update/${todo._id}`}>
-                  <UpdateIcon />
+                  <Tooltip title="Edit">
+                    <IconButton>
+                      <ModeEdition />
+                    </IconButton>
+                  </Tooltip>
                 </Link>
               </button>
               <button
                 onClick={() => deleteTodo(todo._id)}
                 className="px-3 py-1 text-sm text-gray-500 hover:text-gray-800 rounded-md transition-colors duration-200"
               >
-                <DeleteIcon />
+                <Tooltip title="Delete">
+                  <IconButton>
+                    <DeleteIcon />
+                  </IconButton>
+                </Tooltip>
               </button>
             </div>
             <p
