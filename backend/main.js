@@ -6,8 +6,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 
 import todosRouter from "./routes/todos.js";
-
-//import { create, findAll, findById, update, deleteById } from "./store/todo.store.js";
+import authRouter from "./routes/auth.js";
 
 const port = process.env.PORT;
 
@@ -21,9 +20,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use("/todos", todosRouter);
-// list all end points for todo resource as per RESTful API
-
-
+app.use("/auth", authRouter);
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
